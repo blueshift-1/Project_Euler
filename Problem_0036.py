@@ -1,5 +1,7 @@
 __author__ = 'zwilson'
 
+import time
+
 def dec2binary(dec):
 
     bin = ""
@@ -30,10 +32,11 @@ def _reverse(str):
 
     return reverse_str
 
+start_time = time.time()
 total = 0
-
 for i in range(1,1000000):
     if is_palendrome(str(i)) == True and is_palendrome(str(dec2binary(i))) == True:
         total += i
 
-print(total)
+print("Total: " + str(total))
+print("Run Time: %s seconds" % (time.time()-start_time))
