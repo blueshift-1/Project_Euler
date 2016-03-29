@@ -1,20 +1,31 @@
 __author__ = 'zwilson'
 
+import time
+
+start_time = time.time()
+
 def number_word_generator(num):
     num_string = str(num)
-
+    special = {1000: "One Thousand", 900: "Nine Hundred", 800: "Eight Hundred",
+               700: "Seven Hundred", 600: "Six Hundred", 500: "Five Hundred",
+               400: "Four Hundred", 300: "Three Hundred", 200: "Two Hundred",
+               100: "One Hundred"}
     output_string = ""
 
-    for i in range(0,len(num_string)):
-        place = len(num_string)-1-i
 
-        value = get_number_name(num_string[place],i,"")
+    if num in special.keys():
+        return special[num]
+    else:
+        for i in range(0,len(num_string)):
+            place = len(num_string)-1-i
 
-        if value == "SPECIAL TENS":
-            output_string = get_number_name(num_string[place+1],0,"SPECIAL TENS")
+            value = get_number_name(num_string[place],i,"")
 
-        else:
-            output_string = value + " " + output_string
+            if value == "SPECIAL TENS":
+                output_string = get_number_name(num_string[place+1],0,"SPECIAL TENS")
+
+            else:
+                output_string = value + " " + output_string
 
     return output_string
 
@@ -45,7 +56,14 @@ def count_alpha(string):
             alpha_count+=1
     return alpha_count
 
-for i in range(990,1001):
-    word = number_word_generator(i)
-    print(word+": "+str(count_alpha(word)))
+word = ""
+for i in range(1,1001):
+    word += number_word_generator(i)
 
+character_count = 0
+for i in range(0,len(word)):
+    if word[i].isalpha() == True:
+        character_count += 1
+
+print ("Character Count: " + str(character_count))
+print("Run Time: %s seconds" % (time.time() - start_time))
